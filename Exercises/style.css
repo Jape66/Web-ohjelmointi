@@ -1,0 +1,19 @@
+body { 
+    background-color: beige; 
+}
+.animaatio {
+  font-size: 3em;
+  color:darkred;
+}
+.teksti {
+color: crimson;
+}
+.alaotsikko {
+    color:darkred;
+}
+p {
+    color:firebrick;
+}
+em {
+    color:firebrick;
+}
