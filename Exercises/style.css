@@ -28,6 +28,10 @@ em {
     width: 200px;
 
     height: 100px;
+    border-color: green;
+    border-width: 10px;
+    border-style: solid;
+    text-align: center;
 
     background-color: red;
 
@@ -42,9 +46,11 @@ em {
     height: 100px;
     position: relative;
     left: 250px;
-    top: -115px;
-    
-    
+    top: -120px;
+    border-color: red;
+    border-width: 10px;
+    border-style: solid;
+    text-align: center;
 
     background-color: yellow;
 
@@ -59,7 +65,11 @@ em {
     height: 100px;
     position: relative;
     left: 500px;
-    top: -230px;
+    top: -240px;
+    border-color: yellow;
+    border-width: 10px;
+    border-style: solid;
+    text-align: center;
     
 
     background-color: green;
@@ -67,5 +77,5 @@ em {
 }
 
 #musta {
-    color: black;
+    color: blue;
 }
