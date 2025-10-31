@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         //Alla oleva koodi ohjaa käyttäjän palkkalaskuriin 2 sekunnin kuluttua
-        echo 'Siirrytään palkkalaskuriin!'
+        echo 'Siirrytään palkkalaskuriin!';
         echo '<meta http-equiv="refresh" content="2;url=palkkalaskuri.php">';
         exit();
     } else {
