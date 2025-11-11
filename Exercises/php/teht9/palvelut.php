@@ -114,14 +114,13 @@
     <nav>
         <a href="index.php">Etusivu</a>
         <a href="palvelut.php">Palvelut</a>
-        <a href="#">Ota yhteyttä</a>
+        <a href="palaute.php">Ota yhteyttä</a>
     </nav>
 </header>
 
 <main>
     <h1>Palvelumme</h1>
 
-    <!-- Tuulilasinvaihto -->
     <div class="service" id="tuulilasinvaihto">
         <img src="images/tuulilasinvaihto.jpg" alt="Rikkoutunut tuulilasi">
         <div class="service-content">
@@ -130,7 +129,6 @@
         </div>
     </div>
 
-    <!-- Kolarihuolto -->
     <div class="service" id="kolarihuolto">
         <img src="images/kolarihuolto.jpg" alt="Kolarihuolto – auton korjaus">
         <div class="service-content">
@@ -139,7 +137,6 @@
         </div>
     </div>
 
-    <!-- Toistuvat huollot -->
     <div class="service" id="huollot">
         <img src="images/huollot.jpg" alt="Autohuolto – moottorin tarkastus">
         <div class="service-content">
@@ -150,7 +147,6 @@
 </main>
 
 <footer>
-    &copy; <?php echo date("Y"); ?> Vaurioapu. Kaikki oikeudet pidätetään.
 </footer>
 
 </body>

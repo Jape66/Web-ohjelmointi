@@ -132,12 +132,12 @@
     <nav>
         <a href="index.php">Etusivu</a>
         <a href="palvelut.php">Palvelut</a>
-        <a href="#">Ota yhteyttä</a>
+        <a href="palaute.php">Ota yhteyttä</a>
     </nav>
 </header>
 
 <main>
-    <h1>Palvelut</h1>
+    <h1>Etusivu</h1>
     <div class="services">
         <div class="card">
             <h3>Tuulilasinvaihto</h3>
@@ -165,7 +165,7 @@
 </main>
 
 <footer>
-    &copy; <?php echo date("Y"); ?> Vaurioapu. Kaikki oikeudet pidätetään.
+
 </footer>
 
 </body>
