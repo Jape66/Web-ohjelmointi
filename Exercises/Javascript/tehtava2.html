@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <title>Ehtolauseet ja silmukat</title>
+</head>
+<body>
+    <h1>Tehtävä 2</h1>
+    <h2>Kertotaulu:</h2>
+    <ul id="numerolista"></ul>
+
+    <script>
+        let lampo = 15;
+
+        if (lampo < 0)
+    {
+        console.log("Pakkasta!");
+    }
+    else if (lampo >= 0 && lampo <= 20)
+    {
+        console.log("Sopiva ulkoilukeli.");
+    }
+    else
+    {
+        console.log("Hellettä!");
+    }
+
+    const lista = document.getElementById("numerolista");
+
+    for (let i = 1; i <= 10; i++) 
+    {
+        const li = document.createElement("li");
+        li.textContent = "Numero " + i;
+        lista.appendChild(li);
+    }
+    </script>
+</body>
+</html>
