@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Palkkalaskuri</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #2563eb;
+      --danger: #dc2626;
+      --warn: #f97316;
+      --success: #16a34a;
+      --shadow: 0 10px 25px rgba(0,0,0,0.08);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 32px 16px;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      display: grid;
+      gap: 18px;
+    }
+
+    header {
+      text-align: center;
+      padding: 8px 0 2px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: -0.02em;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      align-items: end;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .hint {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+      background: #fff;
+    }
+
+    input[type="number"]:focus {
+      border-color: rgba(37,99,235,0.6);
+      box-shadow: 0 0 0 4px rgba(37,99,235,0.12);
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 11px 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .05s ease, filter .15s ease;
+      background: var(--accent);
+      color: white;
+      width: 100%;
+    }
+
+    button:active { transform: translateY(1px); }
+    button:hover { filter: brightness(0.97); }
+
+    .error {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(220,38,38,0.25);
+      background: rgba(220,38,38,0.08);
+      color: var(--danger);
+      font-weight: 700;
+    }
+
+    /* Tulosalue */
+    #tulosAlue {
+      display: none; /* piilotettu oletuksena */
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #fbfbff;
+    }
+
+    .results {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .resultBox {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .resultBox .title {
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .resultBox .value {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    /* Neton värit vaihdetaan JS:llä */
+    .netto-good { color: var(--success); }
+    .netto-low { color: var(--warn); }
+
+    @media (max-width: 760px) {
+      form { grid-template-columns: 1fr; }
+      button { width: 100%; }
+      .results { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Palkkalaskuri</h1>
+      <p>Syötä tuntipalkka, tunnit ja veroprosentti — lasken bruton, veron ja neton.</p>
+    </header>
+
+    <div class="card">
+      <form id="palkkaForm">
+        <div class="field">
+          <label for="tuntipalkka">Tuntipalkka (€)</label>
+          <input type="number" id="tuntipalkka" placeholder="esim. 15.50" step="0.01" min="0" />
+          <div class="hint">Anna tuntipalkka euroina.</div>
+        </div>
+
+        <div class="field">
+          <label for="tunnit">Tehdyt tunnit (h)</label>
+          <input type="number" id="tunnit" placeholder="esim. 8" step="0.1" min="0" />
+          <div class="hint">Anna tehtyjen tuntien määrä.</div>
+        </div>
+
+        <div class="field">
+          <label for="veroProsentti">Veroprosentti (%)</label>
+          <input type="number" id="veroProsentti" placeholder="esim. 25" step="0.01" min="0" />
+          <div class="hint">Anna veroprosentti (0–100).</div>
+        </div>
+
+        <div class="actions" style="grid-column: 1 / -1;">
+          <button type="button" onclick="suoritaLaskenta()">Laske</button>
+        </div>
+      </form>
+
+      <div id="virhe" class="error">Tarkista syöttämäsi tiedot.</div>
+
+      <div id="tulosAlue">
+        <strong>Yhteenveto</strong>
+        <div class="results">
+          <div class="resultBox">
+            <div class="title">Bruttopalkka</div>
+            <div class="value" id="bruttoTeksti">-</div>
+          </div>
+
+          <div class="resultBox">
+            <div class="title">Veron määrä</div>
+            <div class="value" id="veroTeksti">-</div>
+          </div>
+
+          <div class="resultBox">
+            <div class="title">Nettopalkka</div>
+            <div class="value" id="nettoTeksti">-</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function suoritaLaskenta() {
+      // 1. Hae elementit muuttujiin
+      const tuntipalkkaEl = document.getElementById("tuntipalkka");
+      const tunnitEl = document.getElementById("tunnit");
+      const veroEl = document.getElementById("veroProsentti");
+
+      const virheEl = document.getElementById("virhe");
+      const tulosAlueEl = document.getElementById("tulosAlue");
+
+      const bruttoTekstiEl = document.getElementById("bruttoTeksti");
+      const veroTekstiEl = document.getElementById("veroTeksti");
+      const nettoTekstiEl = document.getElementById("nettoTeksti");
+
+      // 2. Tallenna arvot muuttujiin ja muuta numeroiksi
+      const tuntipalkka = Number(tuntipalkkaEl.value);
+      const tunnit = Number(tunnitEl.value);
+      const veroProsentti = Number(veroEl.value);
+
+      // Apu: tarkista myös tyhjät kentät (value === "")
+      const onTyhja =
+        tuntipalkkaEl.value === "" ||
+        tunnitEl.value === "" ||
+        veroEl.value === "";
+
+      // 3. Validointi
+      // - ei tyhjiä
+      // - ei negatiivisia
+      // - prosentti järkevä (0–100)
+      if (
+        onTyhja ||
+        tuntipalkka < 0 ||
+        tunnit < 0 ||
+        veroProsentti < 0 ||
+        veroProsentti > 100 ||
+        Number.isNaN(tuntipalkka) ||
+        Number.isNaN(tunnit) ||
+        Number.isNaN(veroProsentti)
+      ) {
+        virheEl.style.display = "block";
+        tulosAlueEl.style.display = "none";
+        return; // lopeta
+      }
+
+      // Jos kaikki ok, piilota virhe
+      virheEl.style.display = "none";
+
+      // 4. Laskukaavat
+      const brutto = tuntipalkka * tunnit;
+      const vero = brutto * (veroProsentti / 100);
+      const netto = brutto - vero;
+
+      // 5. Päivitä HTML
+      tulosAlueEl.style.display = "block";
+      bruttoTekstiEl.innerText = brutto.toFixed(2) + " €";
+      veroTekstiEl.innerText = vero.toFixed(2) + " €";
+      nettoTekstiEl.innerText = netto.toFixed(2) + " €";
+
+      // 6. Tyylin muutos ehdolla (netto-väri)
+      nettoTekstiEl.classList.remove("netto-good", "netto-low");
+      if (netto < 100) {
+        nettoTekstiEl.classList.add("netto-low");   // oranssi/punainen
+      } else {
+        nettoTekstiEl.classList.add("netto-good");  // vihreä
+      }
+    }
+  </script>
+</body>
+</html>
