@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tehtävä 5 – Auto-olio</title>
+    
+</head>
+<body>
+
+    <h1>Auto-olio</h1>
+
+    <div class="box">
+        <p id="autonTiedot"></p>
+        <p id="tila"></p>
+        <button onclick="auto.kaynnista()">Käynnistä auto</button>
+    </div>
+
+    <script>
+        // Luo auto-olio
+        let auto = {
+            merkki: "Mercedes-Benz",
+            malli: "S500",
+            vuosimalli: 1999,
+            kaynnissa: false,
+
+            kaynnista: function () {
+                this.kaynnissa = true;
+                document.getElementById("tila").innerText = "Auto käynnistyi";
+                paivitaTiedot();
+            }
+        };
+
+        // Funktio auton tietojen tulostamiseen
+        function paivitaTiedot() {
+            document.getElementById("autonTiedot").innerHTML =
+                "Merkki: " + auto.merkki + "<br>" +
+                "Malli: " + auto.malli + "<br>" +
+                "Vuosimalli: " + auto.vuosimalli + "<br>" +
+                "Käynnissä: " + (auto.kaynnissa ? "Kyllä" : "Ei");
+        }
+
+        // Tulosta tiedot heti sivun latautuessa
+        paivitaTiedot();
+    </script>
+
+</body>
+</html>
