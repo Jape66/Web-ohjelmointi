@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <title>Kauppa</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+
+        .tuote {
+            padding: 10px;
+            border: 1px solid #aaa;
+            width: 250px;
+            margin-bottom: 20px;
+        }
+
+        .kori {
+            margin-top: 30px;
+            padding: 10px;
+            border-top: 2px solid #333;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        td, th {
+            border: 1px solid #aaa;
+            padding: 6px 10px;
+        }
+
+        th {
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Verkkokauppa</h1>
+
+    <div class="tuote">
+        <h2 id="tuote-nimi"></h2>
+        <p>Hinta: <span id="tuote-hinta"></span> €</p>
+
+        <label>Määrä:</label>
+        <input type="number" id="maara" min="1" value="1">
+        <button id="lisaa-btn">Lisää koriin</button>
+    </div>
+
+    <div class="kori">
+        <h3>Ostoskori</h3>
+        <div id="kori-sisalto">Ei tuotteita vielä.</div>
+    </div>
+
+    <script>
+        const tuote = {
+            nimi: "Karkkipussi",
+            hinta: 2.50
+        };
+
+        document.getElementById("tuote-nimi").textContent = tuote.nimi;
+        document.getElementById("tuote-hinta").textContent = tuote.hinta.toFixed(2);
+
+        const ostoskori = [];
+
+        document.getElementById("lisaa-btn").addEventListener("click", function () {
+            const maara = Number(document.getElementById("maara").value);
+
+            if (maara <= 0) {
+                alert("Määrän täytyy olla vähintään 1.");
+                return;
+            }
+
+            const rivinHinta = maara * tuote.hinta;
+
+            const ostos = {
+                nimi: tuote.nimi,
+                kpl: maara,
+                yhteensa: rivinHinta
+            };
+
+            ostoskori.push(ostos);
+
+            paivitaKori();
+        });
+
+        function paivitaKori() {
+            const alue = document.getElementById("kori-sisalto");
+
+            if (ostoskori.length === 0) {
+                alue.textContent = "Ei tuotteita vielä.";
+                return;
+            }
+
+            let summa = 0;
+            ostoskori.forEach(o => summa += o.yhteensa);
+
+            let html = `
+                <table>
+                    <tr>
+                        <th>Tuote</th>
+                        <th>Määrä</th>
+                        <th>Yhteensä (€)</th>
+                    </tr>
+            `;
+
+            ostoskori.forEach(o => {
+                html += `
+                    <tr>
+                        <td>${o.nimi}</td>
+                        <td>${o.kpl}</td>
+                        <td>${o.yhteensa.toFixed(2)}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                <tr>
+                    <th colspan="2">Loppusumma</th>
+                    <th>${summa.toFixed(2)} €</th>
+                </tr>
+                </table>
+            `;
+
+            alue.innerHTML = html;
+        }
+    </script>
+
+</body>
+</html>
